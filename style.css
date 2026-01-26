@@ -151,8 +151,10 @@ header h1 {
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
+    align-items: center;
     min-height: 0;
+    overflow: visible;
     touch-action: manipulation;
 }
 
@@ -178,12 +180,17 @@ header h1 {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border-color: #5568d3;
+    justify-content: flex-start;
+    gap: 2px;
 }
 
 .day-number {
     font-size: 0.85em;
     font-weight: bold;
     line-height: 1.2;
+    flex-shrink: 0;
+    width: 100%;
+    text-align: left;
 }
 
 .shift-code {
@@ -192,13 +199,19 @@ header h1 {
     text-align: center;
     margin: 2px 0;
     line-height: 1.2;
+    flex-shrink: 0;
+    width: 100%;
 }
 
 .shift-time {
     font-size: 0.7em;
     text-align: center;
     opacity: 0.9;
-    line-height: 1.1;
+    line-height: 1.2;
+    flex-shrink: 0;
+    width: 100%;
+    white-space: nowrap;
+    overflow: visible;
 }
 
 .shift-info {
@@ -323,21 +336,26 @@ header h1 {
     }
 
     .calendar-day {
-        padding: 3px;
+        padding: 4px 2px;
         border-radius: 4px;
+        min-height: 50px;
+        aspect-ratio: auto;
     }
 
     .day-number {
-        font-size: 0.75em;
+        font-size: 0.7em;
+        margin-bottom: 2px;
     }
 
     .shift-code {
-        font-size: 0.95em;
-        margin: 1px 0;
+        font-size: 0.9em;
+        margin: 2px 0;
     }
 
     .shift-time {
-        font-size: 0.65em;
+        font-size: 0.6em;
+        margin-top: auto;
+        padding-top: 2px;
     }
 
     .shift-info {
@@ -392,19 +410,23 @@ header h1 {
     }
 
     .calendar-day {
-        padding: 6px;
+        padding: 5px;
+        min-height: 60px;
     }
 
     .day-number {
-        font-size: 0.9em;
+        font-size: 0.8em;
+        margin-bottom: 2px;
     }
 
     .shift-code {
-        font-size: 1.05em;
+        font-size: 1em;
+        margin: 2px 0;
     }
 
     .shift-time {
-        font-size: 0.75em;
+        font-size: 0.7em;
+        margin-top: auto;
     }
 
     #legendContent {
