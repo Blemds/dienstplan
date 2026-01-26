@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Dienstplan - Felix Schaar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Mein Dienstplan</h1>
+            <div class="month-navigation">
+                <button id="prevMonth" class="nav-btn">←</button>
+                <h2 id="currentMonth"></h2>
+                <button id="nextMonth" class="nav-btn">→</button>
+            </div>
+        </header>
+
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <div class="day-header">Mo</div>
+                <div class="day-header">Di</div>
+                <div class="day-header">Mi</div>
+                <div class="day-header">Do</div>
+                <div class="day-header">Fr</div>
+                <div class="day-header">Sa</div>
+                <div class="day-header">So</div>
+            </div>
+            <div id="calendar" class="calendar-grid"></div>
+        </div>
+
+        <div class="shift-info">
+            <h3>Schichtinformationen</h3>
+            <div id="shiftDetails"></div>
+        </div>
+
+        <div class="legend">
+            <h3>Schichttypen</h3>
+            <div id="legendContent"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

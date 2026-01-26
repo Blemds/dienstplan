@@ -1,0 +1,414 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 10px;
+    color: #333;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 3px solid #667eea;
+    padding-bottom: 20px;
+}
+
+header h1 {
+    color: #667eea;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.month-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.nav-btn {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    min-width: 44px;
+    min-height: 44px;
+    touch-action: manipulation;
+}
+
+.nav-btn:hover {
+    background: #5568d3;
+    transform: scale(1.05);
+}
+
+.nav-btn:active {
+    transform: scale(0.95);
+}
+
+#currentMonth {
+    font-size: 1.3em;
+    color: #333;
+    text-align: center;
+    flex: 1;
+    min-width: 0;
+}
+
+.upload-section {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.upload-btn {
+    display: inline-block;
+    background: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    font-size: 0.9em;
+    min-height: 44px;
+    touch-action: manipulation;
+}
+
+.upload-btn:hover {
+    background: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#uploadStatus {
+    display: block;
+    margin-top: 10px;
+    color: #28a745;
+    font-weight: bold;
+}
+
+.calendar-container {
+    margin-bottom: 20px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.calendar-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 4px;
+    min-width: 100%;
+}
+
+.day-header {
+    text-align: center;
+    font-weight: bold;
+    padding: 8px 4px;
+    background: #667eea;
+    color: white;
+    border-radius: 6px;
+    font-size: 0.85em;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    min-width: 100%;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 4px;
+    background: #f8f9fa;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 0;
+    touch-action: manipulation;
+}
+
+.calendar-day:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-color: #667eea;
+}
+
+.calendar-day.other-month {
+    opacity: 0.4;
+    background: #e9ecef;
+}
+
+.calendar-day.today {
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    border: 3px solid #ff6b6b;
+    font-weight: bold;
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+}
+
+.calendar-day.has-shift {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: #5568d3;
+}
+
+.day-number {
+    font-size: 0.85em;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.shift-code {
+    font-size: 1.1em;
+    font-weight: bold;
+    text-align: center;
+    margin: 2px 0;
+    line-height: 1.2;
+}
+
+.shift-time {
+    font-size: 0.7em;
+    text-align: center;
+    opacity: 0.9;
+    line-height: 1.1;
+}
+
+.shift-info {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.shift-info h3 {
+    color: #667eea;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+#shiftDetails {
+    font-size: 0.95em;
+    line-height: 1.6;
+}
+
+#shiftDetails p {
+    margin-bottom: 8px;
+}
+
+.legend {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.legend h3 {
+    color: #667eea;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+#legendContent {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+.legend-item {
+    background: white;
+    padding: 10px;
+    border-radius: 6px;
+    border-left: 3px solid #667eea;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.legend-item strong {
+    color: #667eea;
+    font-size: 1em;
+    display: block;
+    margin-bottom: 3px;
+}
+
+.legend-item span {
+    color: #666;
+    font-size: 0.85em;
+}
+
+/* Mobile Optimierungen */
+@media (max-width: 480px) {
+    body {
+        padding: 5px;
+    }
+
+    .container {
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    header {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+    }
+
+    header h1 {
+        font-size: 1.4em;
+        margin-bottom: 8px;
+    }
+
+    .month-navigation {
+        gap: 10px;
+    }
+
+    .nav-btn {
+        padding: 8px 12px;
+        font-size: 0.9em;
+        min-width: 40px;
+        min-height: 40px;
+    }
+
+    #currentMonth {
+        font-size: 1.1em;
+    }
+
+    .upload-section {
+        padding: 12px;
+        margin-bottom: 15px;
+    }
+
+    .upload-btn {
+        padding: 10px 16px;
+        font-size: 0.85em;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .calendar-header {
+        gap: 3px;
+    }
+
+    .day-header {
+        padding: 6px 2px;
+        font-size: 0.75em;
+    }
+
+    .calendar-grid {
+        gap: 3px;
+    }
+
+    .calendar-day {
+        padding: 3px;
+        border-radius: 4px;
+    }
+
+    .day-number {
+        font-size: 0.75em;
+    }
+
+    .shift-code {
+        font-size: 0.95em;
+        margin: 1px 0;
+    }
+
+    .shift-time {
+        font-size: 0.65em;
+    }
+
+    .shift-info {
+        padding: 12px;
+    }
+
+    .shift-info h3 {
+        font-size: 1.1em;
+    }
+
+    #shiftDetails {
+        font-size: 0.9em;
+    }
+
+    .legend {
+        padding: 12px;
+    }
+
+    .legend h3 {
+        font-size: 1.1em;
+    }
+
+    #legendContent {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .legend-item {
+        padding: 8px;
+    }
+
+    .legend-item strong {
+        font-size: 0.95em;
+    }
+
+    .legend-item span {
+        font-size: 0.8em;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    header h1 {
+        font-size: 1.6em;
+    }
+
+    #currentMonth {
+        font-size: 1.2em;
+    }
+
+    .calendar-day {
+        padding: 6px;
+    }
+
+    .day-number {
+        font-size: 0.9em;
+    }
+
+    .shift-code {
+        font-size: 1.05em;
+    }
+
+    .shift-time {
+        font-size: 0.75em;
+    }
+
+    #legendContent {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+}
+
