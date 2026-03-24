@@ -135,6 +135,14 @@ function setupEventListeners() {
         renderCalendar();
         updateMonthDisplay();
     });
+
+    document.getElementById('todayBtn').addEventListener('click', () => {
+        const now = new Date();
+        currentMonth = now.getMonth();
+        currentYear = now.getFullYear();
+        renderCalendar();
+        updateMonthDisplay();
+    });
 }
 
 function updateMonthDisplay() {
@@ -149,6 +157,7 @@ function updateMonthDisplay() {
 function renderCalendar() {
     const calendar = document.getElementById('calendar');
     calendar.innerHTML = '';
+    document.querySelectorAll('.calendar-day.is-selected').forEach((el) => el.classList.remove('is-selected'));
 
     const firstDay = new Date(currentYear, currentMonth, 1);
     const lastDay = new Date(currentYear, currentMonth + 1, 0);
@@ -189,11 +198,16 @@ function renderCalendar() {
 function createDayElement(day, isOtherMonth, year, month, monthKey = null, isToday = false) {
     const dayElement = document.createElement('div');
     dayElement.className = 'calendar-day';
-    
+
+    const dowMonFirst = (new Date(year, month, day).getDay() + 6) % 7;
+    if (dowMonFirst >= 5) {
+        dayElement.classList.add('is-weekend');
+    }
+
     if (isOtherMonth) {
         dayElement.classList.add('other-month');
     }
-    
+
     if (isToday) {
         dayElement.classList.add('today');
     }
@@ -220,8 +234,9 @@ function createDayElement(day, isOtherMonth, year, month, monthKey = null, isTod
         shiftTimeElement.textContent = `ab ${shift.start}`;
         dayElement.appendChild(shiftTimeElement);
 
-        // Klick-Event für Details
         dayElement.addEventListener('click', () => {
+            document.querySelectorAll('.calendar-day.is-selected').forEach((el) => el.classList.remove('is-selected'));
+            dayElement.classList.add('is-selected');
             showShiftDetails(day, month + 1, year, shiftCode, shift);
         });
     }
@@ -231,17 +246,35 @@ function createDayElement(day, isOtherMonth, year, month, monthKey = null, isTod
 
 function showShiftDetails(day, month, year, shiftCode, shift) {
     const detailsDiv = document.getElementById('shiftDetails');
+    detailsDiv.removeAttribute('data-empty');
     const monthNames = [
         'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
         'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'
     ];
-    
+
     detailsDiv.innerHTML = `
-        <p><strong>Datum:</strong> ${day}. ${monthNames[month - 1]} ${year}</p>
-        <p><strong>Schicht:</strong> ${shiftCode} - ${shift.name}</p>
-        <p><strong>Beginn:</strong> ${shift.start} Uhr</p>
-        <p><strong>Ende:</strong> ${shift.end} Uhr</p>
-        <p><strong>Pause:</strong> ${shift.break}</p>
+        <div class="detail-sheet">
+            <div class="detail-row">
+                <span class="detail-label">Datum</span>
+                <span class="detail-value">${day}. ${monthNames[month - 1]} ${year}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Schicht</span>
+                <span class="detail-value detail-value--accent">${shiftCode} · ${shift.name}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Beginn</span>
+                <span class="detail-value">${shift.start} Uhr</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Ende</span>
+                <span class="detail-value">${shift.end} Uhr</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Pause</span>
+                <span class="detail-value">${shift.break}</span>
+            </div>
+        </div>
     `;
 }
 
@@ -253,8 +286,8 @@ function createLegend() {
         const legendItem = document.createElement('div');
         legendItem.className = 'legend-item';
         legendItem.innerHTML = `
-            <strong>${code}</strong>
-            <span>${shift.name} | ${shift.start} - ${shift.end} Uhr</span>
+            <span class="legend-item__code">${code}</span>
+            <span class="legend-item__meta"><strong>${shift.name}</strong> · ${shift.start}–${shift.end} Uhr · Pause ${shift.break}</span>
         `;
         legendContent.appendChild(legendItem);
     });

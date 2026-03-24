@@ -4,45 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
-    <title>Dienstplan - Felix Schaar</title>
+    <meta name="theme-color" content="#080a0e">
+    <title>Dienstplan · Felix Schaar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Mein Dienstplan</h1>
-            <div class="month-navigation">
-                <button id="prevMonth" class="nav-btn">←</button>
-                <h2 id="currentMonth"></h2>
-                <button id="nextMonth" class="nav-btn">→</button>
+    <div class="app">
+        <header class="top-bar">
+            <div class="top-bar__brand">
+                <span class="top-bar__mark" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg>
+                </span>
+                <div class="top-bar__titles">
+                    <h1 class="top-bar__title">Dienstplan</h1>
+                    <p class="top-bar__subtitle">Felix Schaar</p>
+                </div>
+            </div>
+
+            <div class="top-bar__actions" role="group" aria-label="Monatsauswahl">
+                <div class="month-pill">
+                    <button type="button" id="prevMonth" class="month-pill__btn" aria-label="Vorheriger Monat">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+                    </button>
+                    <h2 id="currentMonth" class="month-pill__month"></h2>
+                    <button type="button" id="nextMonth" class="month-pill__btn" aria-label="Nächster Monat">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+                    </button>
+                </div>
+                <button type="button" id="todayBtn" class="btn-today">Heute</button>
             </div>
         </header>
 
-        <div class="calendar-container">
-            <div class="calendar-header">
-                <div class="day-header">Mo</div>
-                <div class="day-header">Di</div>
-                <div class="day-header">Mi</div>
-                <div class="day-header">Do</div>
-                <div class="day-header">Fr</div>
-                <div class="day-header">Sa</div>
-                <div class="day-header">So</div>
-            </div>
-            <div id="calendar" class="calendar-grid"></div>
-        </div>
+        <main class="app-main">
+            <section class="panel panel--calendar" aria-labelledby="calendar-heading">
+                <div class="panel__head">
+                    <span class="panel__eyebrow">Ansicht</span>
+                    <h2 class="panel__heading" id="calendar-heading">Kalender</h2>
+                </div>
+                <div class="calendar-frame">
+                    <div class="calendar-header">
+                        <div class="day-header"><span>Mo</span></div>
+                        <div class="day-header"><span>Di</span></div>
+                        <div class="day-header"><span>Mi</span></div>
+                        <div class="day-header"><span>Do</span></div>
+                        <div class="day-header"><span>Fr</span></div>
+                        <div class="day-header day-header--weekend"><span>Sa</span></div>
+                        <div class="day-header day-header--weekend"><span>So</span></div>
+                    </div>
+                    <div id="calendar" class="calendar-grid"></div>
+                </div>
+            </section>
 
-        <div class="shift-info">
-            <h3>Schichtinformationen</h3>
-            <div id="shiftDetails"></div>
-        </div>
+            <aside class="app-aside">
+                <section class="panel panel--detail" aria-labelledby="detail-heading">
+                    <div class="panel__head">
+                        <span class="panel__eyebrow">Auswahl</span>
+                        <h2 class="panel__heading" id="detail-heading">Schichtdetails</h2>
+                    </div>
+                    <div id="shiftDetails" class="shift-details" data-empty>
+                        <div class="shift-details__empty">
+                            <span class="shift-details__empty-icon" aria-hidden="true">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M15 15l-2 5L9 9l11 4-5 2z"/><path d="M18.5 10.5l-7-7"/><path d="M13.5 5.5l2 2"/><path d="M3 21l4-4"/></svg>
+                            </span>
+                            <p class="shift-details__empty-text">Tippe auf einen <strong>Dienst</strong> im Kalender – dann siehst du hier Zeiten und Bezeichnung.</p>
+                        </div>
+                    </div>
+                </section>
 
-        <div class="legend">
-            <h3>Schichttypen</h3>
-            <div id="legendContent"></div>
-        </div>
+                <section class="panel panel--legend" aria-labelledby="legend-heading">
+                    <div class="panel__head">
+                        <span class="panel__eyebrow">Referenz</span>
+                        <h2 class="panel__heading" id="legend-heading">Schichttypen</h2>
+                    </div>
+                    <div id="legendContent" class="legend-list"></div>
+                </section>
+            </aside>
+        </main>
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
-
